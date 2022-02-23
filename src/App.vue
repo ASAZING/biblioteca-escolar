@@ -1,20 +1,16 @@
 <template>
   <div>
     <h1>Biblioteca Escolar</h1>
-    <FilterByTitle/>
-    <br>
     <ListBook/>
   </div>
 </template>
 
 <script>
 import ListBook from '@/components/ListBook.vue'
-import FilterByTitle from '@/components/FilterByTitle'
 export default {
   name: 'App',
   components: {
-    ListBook,
-    FilterByTitle
+    ListBook
   }
 }
 </script>

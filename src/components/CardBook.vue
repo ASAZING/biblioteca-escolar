@@ -3,7 +3,9 @@
     <img :src="books.image" :alt="books.title" />
     <div class="book__info">
       <span
-        ><h3>{{ books.title }}</h3></span
+        ><h3 id="show-modal" @click="showModal = true; img = books.image ">
+          {{ books.title }}
+        </h3></span
       >
       <h4>{{ books.subtitle }}</h4>
       <div class="isbn13">
@@ -19,17 +21,57 @@
         </span>
       </div>
       <div class="ulr">
-        <span>
-          Url: {{ books.url }}
-        </span>
+        <span> Url: {{ books.url }} </span>
       </div>
+      <el-button type="warning" plain @click="download">Descargar</el-button>
     </div>
   </div>
+  <Teleport to="body">
+    <!-- use the modal component, pass in the prop -->
+    <modal :show="showModal" :url="img" @close="showModal = false">
+      <template #header>
+        <h3>Image</h3>
+      </template>
+    </modal>
+  </Teleport>
 </template>
 
 <script>
+import axios from "axios";
+import Modal from "@/components/Modal.vue";
+
 export default {
+  components: {
+    Modal,
+  },
+  data() {
+    return {
+      showModal: false,
+      img: ''
+    };
+  },
   props: ["books"],
+  setup(props) {
+    async function download() {
+      const res = await axios.get(
+        "https://api.itbook.store/1.0/books/" + props.books.isbn13
+      );
+      let csvConten = "data:text/csv;charset=utf-8,";
+      const contenHeader = Object.keys(res.data).join(",");
+      const contenValues = Object.values(res.data).join(",");
+      const encodedUri = encodeURI(
+        csvConten + contenHeader + "\n" + contenValues
+      );
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", props.books.isbn13 + ".csv");
+      document.body.appendChild(link);
+      link.click();
+    }
+    const open = true;
+
+    return { download, open };
+  },
 };
 </script>
 
@@ -43,6 +85,7 @@ export default {
   cursor: pointer;
   transition: transform 200ms ease-in-out;
   height: 100%;
+  width: 100%;
   &:hover {
     transform: scale(1.05);
     h3 {
@@ -56,13 +99,10 @@ export default {
     margin-bottom: 0.5rem;
   }
   .book__info {
-    padding: 1.5rem;
+    padding: 0.5rem;
     .isbn13 {
       display: flex;
       align-items: center;
-      margin-bottom: 0.5rem;
-    }
-    .origen {
       margin-bottom: 0.5rem;
     }
   }
