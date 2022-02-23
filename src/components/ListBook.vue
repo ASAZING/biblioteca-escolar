@@ -10,23 +10,24 @@
     </div>
   </section>
   <section>
-    <el-pagination
-      background
-      layout="prev, pager, next"
-      :total="total"
-      @current-change="onChageCurrentPage"
-    >
-    </el-pagination>
-    <div v-loading="books == 0" element-loading-text="Loading..." class="books">
-      <div class="book" v-for="book in books" :key="book.id">
-        <CardBook :books="book" />
+    <el-scrollbar height="480px">
+      <div
+        v-loading="books == 0"
+        element-loading-text="Loading..."
+        class="books"
+      >
+        <div class="book" v-for="book in books" :key="book.id">
+          <CardBook :books="book" />
+        </div>
       </div>
-    </div>
+    </el-scrollbar>
     <el-pagination
+      :page-size="100"
       background
-      layout="prev, pager, next"
+      layout="total, prev, pager, next"
       :total="total"
       @current-change="onChageCurrentPage"
+      class="paginator"
     >
     </el-pagination>
   </section>
@@ -85,12 +86,12 @@ export default {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 3rem;
-  margin-left: 5rem;
-  margin-right: 5rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
 }
 .search {
   width: 400px;
-  margin: 3rem auto 0;
+  margin: 3rem auto 3rem;
   input {
     height: 53px;
     width: 400px;
@@ -98,6 +99,14 @@ export default {
     border-radius: 10px;
     padding: 0 0.5rem;
   }
+}
+.paginator {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 25%;
+  margin-right: 25%;
+  align-items: center;
 }
 @media only screen and (max-width: 720px) {
   .books {
@@ -109,7 +118,7 @@ export default {
   }
   .search {
     width: 400px;
-    margin: 3rem auto 0;
+    margin: 3rem auto 3rem;
     input {
       height: 53px;
       width: 400px;
@@ -130,7 +139,7 @@ export default {
   }
   .search {
     width: 400px;
-    margin: 3rem auto 0;
+    margin: 3rem auto 3rem;
     input {
       height: 53px;
       width: 400px;
@@ -151,7 +160,7 @@ export default {
   }
   .search {
     width: 200px;
-    margin: 3rem auto 0;
+    margin: 3rem auto 3rem;
     input {
       height: 53px;
       width: 200px;
