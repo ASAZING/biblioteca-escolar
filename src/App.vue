@@ -1,7 +1,9 @@
 <template>
   <div>
     <h1>Biblioteca Escolar</h1>
+    <div class="container">
     <ListBook/>
+    </div>
   </div>
 </template>
 

@@ -2,9 +2,9 @@
 export default {
   props: {
     show: Boolean,
-    url : String
-  }
-}
+    url: String,
+  },
+};
 </script>
 
 <template>
@@ -20,7 +20,9 @@ export default {
 
           <div class="modal-footer">
             <slot name="footer">
-               <el-button type="warning" plain @click="$emit('close')">OK</el-button>
+              <el-button type="warning" plain @click="$emit('close')"
+                >OK</el-button
+              >
             </slot>
           </div>
         </div>
@@ -29,7 +31,7 @@ export default {
   </Transition>
 </template>
 
-<style>
+<style lang="scss">
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -55,6 +57,41 @@ export default {
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
+}
+@media only screen and (max-width: 720px) {
+  .modal-container {
+    width: 400px;
+    margin: 0px auto;
+    padding: 20px 30px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+    transition: all 0.3s ease;
+  }
+}
+
+@media only screen and (max-width: 719px) {
+  .modal-container {
+    width: 400px;
+    margin: 0px auto;
+    padding: 20px 30px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+    transition: all 0.3s ease;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .modal-container {
+    width: 300px;
+    margin: 0px auto;
+    padding: 20px 30px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+    transition: all 0.3s ease;
+  }
 }
 
 .modal-header h3 {

@@ -3,7 +3,13 @@
     <img :src="books.image" :alt="books.title" />
     <div class="book__info">
       <span
-        ><h3 id="show-modal" @click="showModal = true; img = books.image ">
+        ><h3
+          id="show-modal"
+          @click="
+            showModal = true;
+            img = books.image;
+          "
+        >
           {{ books.title }}
         </h3></span
       >
@@ -47,7 +53,7 @@ export default {
   data() {
     return {
       showModal: false,
-      img: ''
+      img: "",
     };
   },
   props: ["books"],
@@ -64,7 +70,7 @@ export default {
       );
       const link = document.createElement("a");
       link.setAttribute("href", encodedUri);
-      link.setAttribute("download", props.books.isbn13 + ".csv");
+      link.setAttribute("download", props.books.isbn13 + ".xslx");
       document.body.appendChild(link);
       link.click();
     }

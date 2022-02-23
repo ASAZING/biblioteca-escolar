@@ -18,7 +18,7 @@
     >
     </el-pagination>
     <div v-loading="books == 0" element-loading-text="Loading..." class="books">
-      <div class="books__item" v-for="book in books" :key="book.id">
+      <div class="book" v-for="book in books" :key="book.id">
         <CardBook :books="book" />
       </div>
     </div>
@@ -67,7 +67,15 @@ export default {
       store.dispatch("getBooks");
       loading = false;
     });
-    return { books, currentPage, total, onChageCurrentPage, title, filter, loading };
+    return {
+      books,
+      currentPage,
+      total,
+      onChageCurrentPage,
+      title,
+      filter,
+      loading,
+    };
   },
 };
 </script>
@@ -91,7 +99,66 @@ export default {
     padding: 0 0.5rem;
   }
 }
-el-pagination{
-  background-color: red;
+@media only screen and (max-width: 720px) {
+  .books {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 3rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
+  .search {
+    width: 400px;
+    margin: 3rem auto 0;
+    input {
+      height: 53px;
+      width: 400px;
+      border: none;
+      border-radius: 10px;
+      padding: 0 0.5rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 719px) {
+  .books {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 3rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
+  .search {
+    width: 400px;
+    margin: 3rem auto 0;
+    input {
+      height: 53px;
+      width: 400px;
+      border: none;
+      border-radius: 10px;
+      padding: 0 0.5rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .books {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 3rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
+  .search {
+    width: 200px;
+    margin: 3rem auto 0;
+    input {
+      height: 53px;
+      width: 200px;
+      border: none;
+      border-radius: 10px;
+      padding: 0 0.5rem;
+    }
+  }
 }
 </style>
