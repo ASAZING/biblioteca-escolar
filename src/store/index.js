@@ -23,7 +23,8 @@ export default createStore({
       if (Number(payload.total) > 0) {
         const total = Number(payload.total);
         state.total = total;
-        const pages = Math.ceil(total / 10);
+        // Calculo las paginas uso celi que devuelve el entero mayor o igual más próximo a un número dado. 
+        const pages = Math.ceil(total / 10); 
         state.pageMin = 1;
         state.pageMax = pages;
         state.currentTotal = payload.books.length;
@@ -50,7 +51,7 @@ export default createStore({
     }
   },
   actions: {
-    async getBooks({ commit }, numberRecords) {
+    async getBooks({ commit }) {
       try {
         const res = await axios.get('https://api.itbook.store/1.0/new');
         const { data } = res;

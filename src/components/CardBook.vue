@@ -35,11 +35,10 @@
       <div class="ulr">
         <span> Url: {{ books.url }} </span>
       </div>
-      <el-button type="warning" plain @click="download">Descargar</el-button>
+      <el-button type="warning" plain @click="download">Download</el-button>
     </div>
   </div>
   <Teleport to="body">
-    <!-- use the modal component, pass in the prop -->
     <modal :show="showModal" :url="img" @close="showModal = false">
       <template #header>
         <h3>Image</h3>
@@ -69,10 +68,10 @@ export default {
       const res = await axios.get(
         "https://api.itbook.store/1.0/books/" + props.books.isbn13
       );
-      const data = Object.entries(res.data);
+      const data = Object.entries(res.data); 
       const fileName = "book-" + props.books.isbn13;
       const exportType = exportFromJSON.types.xls;
-      exportFromJSON({ data, fileName, exportType });
+      exportFromJSON({ data, fileName, exportType }); 
     }
     const open = true;
 
