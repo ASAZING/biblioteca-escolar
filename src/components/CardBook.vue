@@ -1,6 +1,12 @@
 <template>
   <div class="book">
-    <img :src="books.image" :alt="books.title" />
+      <div class="block">
+        <el-image :src="books.image" :alt="books.title">
+          <template #placeholder>
+            <div class="image-slot">Loading<span class="dot">...</span></div>
+          </template>
+        </el-image>
+      </div>
     <div class="book__info">
       <span
         ><h3
@@ -45,7 +51,7 @@
 <script>
 import axios from "axios";
 import Modal from "@/components/Modal.vue";
-import exportFromJSON from 'export-from-json';
+import exportFromJSON from "export-from-json";
 
 export default {
   components: {
@@ -63,8 +69,8 @@ export default {
       const res = await axios.get(
         "https://api.itbook.store/1.0/books/" + props.books.isbn13
       );
-      const data = Object.entries(res.data);;
-      const fileName = "book-"+props.books.isbn13;
+      const data = Object.entries(res.data);
+      const fileName = "book-" + props.books.isbn13;
       const exportType = exportFromJSON.types.xls;
       exportFromJSON({ data, fileName, exportType });
     }

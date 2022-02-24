@@ -11,14 +11,14 @@
     </div>
   </section>
   <section>
-    <el-input-number
+    <!--<el-input-number
       v-model="num"
       :min="1"
       :max="10"
       size="small"
       controls-position="right"
       @change="handleChange"
-    />
+    />-->
   </section>
   <section>
     <el-scrollbar height="480px">
