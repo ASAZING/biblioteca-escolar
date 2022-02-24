@@ -50,7 +50,7 @@ export default createStore({
     }
   },
   actions: {
-    async getBooks({ commit }) {
+    async getBooks({ commit }, numberRecords) {
       try {
         const res = await axios.get('https://api.itbook.store/1.0/new');
         const { data } = res;
@@ -66,7 +66,7 @@ export default createStore({
 
     async filterByTitle({ commit, state }, title) {
       try {
-        const res = await axios.get('https://api.itbook.store/1.0/search/' + title + '/' + state.currentPage);
+        const res = title ? await axios.get('https://api.itbook.store/1.0/search/' + title + '/' + state.currentPage) : await axios.get('https://api.itbook.store/1.0/new');
         const { data } = res;
         commit('setBooks', data.books);
         commit('setBookFilter', data);

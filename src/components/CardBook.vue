@@ -45,6 +45,7 @@
 <script>
 import axios from "axios";
 import Modal from "@/components/Modal.vue";
+import exportFromJSON from 'export-from-json';
 
 export default {
   components: {
@@ -62,17 +63,10 @@ export default {
       const res = await axios.get(
         "https://api.itbook.store/1.0/books/" + props.books.isbn13
       );
-      let csvConten = "data:text/csv;charset=utf-8,";
-      const contenHeader = Object.keys(res.data).join(",");
-      const contenValues = Object.values(res.data).join(",");
-      const encodedUri = encodeURI(
-        csvConten + contenHeader + "\n" + contenValues
-      );
-      const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", props.books.isbn13 + ".xslx");
-      document.body.appendChild(link);
-      link.click();
+      const data = Object.entries(res.data);;
+      const fileName = "book-"+props.books.isbn13;
+      const exportType = exportFromJSON.types.xls;
+      exportFromJSON({ data, fileName, exportType });
     }
     const open = true;
 

@@ -7,7 +7,18 @@
         v-model="title"
         @keyup="filter()"
       />
+      <br />
     </div>
+  </section>
+  <section>
+    <el-input-number
+      v-model="num"
+      :min="1"
+      :max="10"
+      size="small"
+      controls-position="right"
+      @change="handleChange"
+    />
   </section>
   <section>
     <el-scrollbar height="480px">
@@ -22,7 +33,6 @@
       </div>
     </el-scrollbar>
     <el-pagination
-      :page-size="100"
       background
       layout="total, prev, pager, next"
       :total="total"
@@ -46,6 +56,11 @@ export default {
     // Composition api
     const title = ref("");
     let loading = true;
+    let num = ref(10);
+    function handleChange(value) {
+      num = value;
+      console.log(num);
+    };
     const store = useStore();
     const filter = () => {
       store.dispatch("filterByTitle", title.value);
@@ -57,13 +72,14 @@ export default {
       return store.state.currentPage;
     });
     const books = computed(() => {
+      num = num+1;
       return store.state.booksFilter;
     });
 
     function onChageCurrentPage(newPage) {
       store.state.currentPage = newPage;
       store.dispatch("filterByTitle", title.value);
-    }
+    };
     onMounted(() => {
       store.dispatch("getBooks");
       loading = false;
@@ -76,6 +92,8 @@ export default {
       title,
       filter,
       loading,
+      handleChange,
+      num,
     };
   },
 };
