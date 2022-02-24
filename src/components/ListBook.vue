@@ -59,7 +59,6 @@ export default {
     let num = ref(10);
     function handleChange(value) {
       num = value;
-      console.log(num);
     };
     const store = useStore();
     const filter = () => {
@@ -72,7 +71,6 @@ export default {
       return store.state.currentPage;
     });
     const books = computed(() => {
-      num = num+1;
       return store.state.booksFilter;
     });
 
